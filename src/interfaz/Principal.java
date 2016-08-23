@@ -17,6 +17,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    double v[];
     public Principal() {
         initComponents();
     }
@@ -97,12 +98,27 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(cmdLlenarManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         cmdLlenadoAutomatico.setText("Llenar automatico");
+        cmdLlenadoAutomatico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLlenadoAutomaticoActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdLlenadoAutomatico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         cmdMostrar.setText("Mostrar");
+        cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMostrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         cmdBorrar.setText("Borrar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 170, 220));
@@ -115,7 +131,7 @@ public class Principal extends javax.swing.JFrame {
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 170, 120));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 120));
 
         jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 210, 170));
 
@@ -139,17 +155,26 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdLlenarManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenarManualActionPerformed
-        // TODO add your handling code here:
+        double n;
+        for (int i = 0; i < v.length; i++){
+          n=Double.parseDouble(JOptionPane.showInputDialog(this, "Digite el elemeto en la posicion"+i));
+          v[i]=n;
+        }
     }//GEN-LAST:event_cmdLlenarManualActionPerformed
 
     private void cmdCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCrearActionPerformed
+        int Longitud;
         if (txtLongitud.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(this, "Digite la longitud","Error",JOptionPane.ERROR_MESSAGE);
             txtLongitud.requestFocusInWindow();
-        }else if (txtLongitud.getText().trim().equals("0")){
+        }else if (Integer.parseInt(txtLongitud.getText().trim())==0){
             JOptionPane.showMessageDialog(this, "La longitud no puee ser cero", "Error",JOptionPane.ERROR_MESSAGE);
             txtLongitud.requestFocusInWindow();
             txtLongitud.selectAll();
+        }else{
+          Longitud=Integer.parseInt(txtLongitud.getText().trim());
+          v = new double [Longitud];
+          JOptionPane.showConfirmDialog(this, "Vector creado exitosamente");
         }
     }//GEN-LAST:event_cmdCrearActionPerformed
 
@@ -162,6 +187,28 @@ public class Principal extends javax.swing.JFrame {
               evt.consume();  
           } 
     }//GEN-LAST:event_txtLongitudKeyTyped
+
+    private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
+        for (int i = 0; i < v.length; i++) {
+          txtResultado.append(v[i]+"\n");  
+        }
+    }//GEN-LAST:event_cmdMostrarActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+      txtLongitud.setText("");
+      txtResultado.setText("");
+      v= null;
+      txtLongitud.requestFocusInWindow();
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void cmdLlenadoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenadoAutomaticoActionPerformed
+        double n;
+        for (int i = 0; i < v.length; i++){
+          //n= (int)(Math.random()* 50 + 1);
+          n=i+1;
+          v[i]=n;
+        }
+    }//GEN-LAST:event_cmdLlenadoAutomaticoActionPerformed
 
     /**
      * @param args the command line arguments
